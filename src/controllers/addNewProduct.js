@@ -1,11 +1,31 @@
 const { Product } = require("../models/product");
+const Joi = require('@hapi/joi');
 
 const addNewProduct = (req, res) => {
+  const { name, img, rate, price, offerPercentage, location, hotDeal, category } = req.body;
   const product = new Product(req.body);
-  product
+
+   const schema = Joi.object().keys({
+       name: Joi.string().required(),
+       img: Joi.string(),
+       rate: Joi.number(),
+       price: Joi.number(),
+       offerPercentage: Joi.number(),
+       location: Joi.array(),
+       hotDeal: Joi.boolean(),
+       category: Joi.string(),
+   }).with('name', 'img');
+
+  const result = Joi.validate({name: name, img:img, rate:rate, price:price, offerPercentage:offerPercentage, location:location, hotDeal:hotDeal, category:category}, schema);
+
+  if(result.error) {
+    return res.status(400).json({ status: 400, msg: "Bad request" })
+  } else {
+    product
     .save()
-    .then(response =>  res.json({ response: response, status: "ok" }))
+    .then(response => res.json({ response: response, status: "ok" }))
     .catch(error => res.status(500).json({ status: 500, msg: "Server error" }));
+  }
 };
 
 module.exports = { addNewProduct };
