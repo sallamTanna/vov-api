@@ -21,7 +21,7 @@ const getAllProducts = (req, res) => {
     .skip(skip)
     .then(response =>{
       if(response.length > 0)
-        return res.json({ data: {products: response}, metadata:{status: 'ok', pagesNumber: Math.round(response.length/size)}})
+        return res.json({ data: {products: response}, metadata:{status: 'ok'}})
       return res.status(404).json({response:"not found"})
       })
     .catch(error => res.status(500).json({ status: 500, msg: "Server error" }));
