@@ -9,7 +9,7 @@ const getProductById = (req, res) => {
     .populate('category')
     .then(response =>{
       if(response.length > 0)
-        return res.json({ data: {categories: response}, metadata:{status: 'ok'}})
+        return res.json({ data: {product: response}, metadata:{status: 'ok'}})
       return res.status(404).json({response:"not found"})
       })
     .catch(error => res.status(500).json({ status: 500, msg: "Server error" }));
