@@ -12,7 +12,7 @@ const getAllProducts = async(req, res) => {
 
   if(req.query.name) {
     query = {
-      name: req.query.name
+      'name': {'$regex': req.query.name}
     }
   }
   const count = await Product.count(query);
