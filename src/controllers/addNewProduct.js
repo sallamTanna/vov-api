@@ -7,19 +7,22 @@ const addNewProduct = (req, res) => {
 
    const schema = Joi.object().keys({
        name: Joi.string().required(),
-       img: Joi.string(),
+       img: Joi.string().required(),
        rate: Joi.number(),
-       price: Joi.number(),
+       price: Joi.number().required(),
        offerPercentage: Joi.number(),
        location: Joi.array(),
-       hotDeal: Joi.boolean(),
-       category: Joi.string(),
+       hotDeal: Joi.boolean().required(),
+       category: Joi.string().required(),
    }).with('name', 'img');
 
   const result = Joi.validate({name: name, img:img, rate:rate, price:price, offerPercentage:offerPercentage, location:location, hotDeal:hotDeal, category:category}, schema);
 
   if(result.error) {
-    return res.status(400).json({ status: 400, msg: "Bad request" })
+    let key = result.error.details[0].path[0];
+    let error = result.error.details[0].message.substring(key.length+2, )
+
+    return res.status(400).json({ status: 400, msg: `[${key}] ${error}` })
   } else {
     product
     .save()
