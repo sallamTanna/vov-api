@@ -18,6 +18,8 @@ const getAllProducts = async(req, res) => {
   const count = await Product.count(query);
 
   Product.find(query)
+  .limit(size)
+  .skip(skip)
   .then(response =>{
     if(response.length>0)
       return res.json({ data: {products: response}, metadata:{status: 'ok', pagesNumber: Math.ceil(count/size)}})
