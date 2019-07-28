@@ -15,7 +15,7 @@ const getAllProducts = async(req, res) => {
       'name': {'$regex': req.query.name}
     }
   }
-  const count = await Product.count(query);
+  const count = await Product.countDocuments(query);
 
   Product.find(query)
   .limit(size)
