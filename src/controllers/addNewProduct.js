@@ -19,10 +19,7 @@ const addNewProduct = (req, res) => {
   const result = Joi.validate({name: name, img:img, rate:rate, price:price, offerPercentage:offerPercentage, location:location, hotDeal:hotDeal, category:category}, schema);
 
   if(result.error) {
-    let key = result.error.details[0].path[0];
-    let error = result.error.details[0].message.substring(key.length+2, )
-
-    return res.status(400).json({ status: 400, msg: `[${key}] ${error}` })
+    return res.status(400).json({ status: 400, msg: result.error.details[0].message.replace(/\"/g, "") })
   } else {
     product
     .save()
