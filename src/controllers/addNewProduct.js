@@ -16,7 +16,7 @@ const addNewProduct = (req, res) => {
        category: Joi.string().required(),
    }).with('name', 'img');
 
-  const result = Joi.validate({name: name, img:img, rate:rate, price:price, offerPercentage:offerPercentage, location:location, hotDeal:hotDeal, category:category}, schema);
+  const result = Joi.validate({name, img, rate,price, offerPercentage, location, hotDeal, category}, schema);
 
   if(result.error) {
     return res.status(400).json({ status: 400, msg: result.error.details[0].message.replace(/\"/g, "") })

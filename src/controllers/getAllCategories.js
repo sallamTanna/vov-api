@@ -7,9 +7,7 @@ const getAllCategories = (req, res) => {
     .then(response => {
       if (response.length > 0)
         return res.json({
-          data: {
-            categories: response
-          },
+          response: response,
           metadata: {
             status: 'ok'
           }
