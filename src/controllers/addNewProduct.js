@@ -10,7 +10,7 @@ const addNewProduct = (req, res) => {
        img: Joi.string().required(),
        rate: Joi.number(),
        price: Joi.number().required(),
-       offerPercentage: Joi.number(),
+       offerPercentage: Joi.string(),
        location: Joi.array(),
        hotDeal: Joi.boolean().required(),
        category: Joi.string().required(),

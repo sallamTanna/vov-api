@@ -7,7 +7,7 @@ exports.Product = mongoose.model('Product', new Schema({
   img: String,
   rate: Number,
   price: Number,
-  offerPercentage: Number,
+  offerPercentage: String,
   location: [String],
   hotDeal: Boolean,
   category: {
