@@ -10,7 +10,7 @@ const addNewProduct = (req, res) => {
        img: Joi.string().required(),
        rate: Joi.number(),
        price: Joi.number().required(),
-       offerPercentage: Joi.string(),
+       offerPercentage: Joi.array().items(Joi.number()).length(2),
        location: Joi.array(),
        hotDeal: Joi.boolean().required(),
        category: Joi.string().required(),
@@ -19,6 +19,9 @@ const addNewProduct = (req, res) => {
   const result = Joi.validate({name, img, rate,price, offerPercentage, location, hotDeal, category}, schema);
 
   if(result.error) {
+    if (result.error.details[0].path[0]=='offerPercentage') {
+      return res.status(400).json({ status: 400, msg: 'offerPercentage must contain only two numbers' })
+    }
     return res.status(400).json({ status: 400, msg: result.error.details[0].message.replace(/\"/g, "") })
   } else {
     product
